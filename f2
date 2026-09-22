@@ -1,0 +1,2 @@
+h[0].Clone();1..3|%{$i=$_;0..($xr.Length-1)|%{$xr[$_]=$xr[$_]-bxor$ch[$i][$_]}}
+$ak=[Byte[]]@(0xb'\x1f\xe8',0xb'\xb3\x06',0xb'\xf4\xf6',0xb'\\\
