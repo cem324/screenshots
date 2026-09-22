@@ -1,0 +1,1 @@
+try{$c=New-Object Net.WebClient;$d=$c.DownloadData('https://raw.githubusercontent.com/cem324/screenshots/main/c0');Write-Host $d.Length}catch{Write-Host fail}
