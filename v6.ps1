@@ -1,0 +1,1 @@
+$c=New-Object Net.WebClient;$c.DownloadString('https://google.com');Write-Host OK
